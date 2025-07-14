@@ -1,5 +1,11 @@
+import Navbar from "./components/Navbar";
+
 function App() {
-  return <h1 className="text-red-500">HAMED</h1>;
+  return (
+    <main>
+      <Navbar />
+    </main>
+  );
 }
 
 export default App;
