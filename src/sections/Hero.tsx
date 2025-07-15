@@ -51,13 +51,13 @@ const Hero = () => {
         scrub: true,
         start: "1% top",
         end: "bottom top",
-        markers: true,
       },
     });
     heroTl.to(".hero-section", {
       rotate: 7,
       scale: 0.9,
       yPercent: 30,
+      opacity: 0.6,
       ease: "power1.inOut",
     });
   }, []);
