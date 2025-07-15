@@ -27,7 +27,7 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #faeade;
+  background-color: var(--color-black);
   color: #523122;
   font-family: "Antonio", sans-serif;
   overflow-x: hidden;
