@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import Message from "./sections/Message";
 import Flavor from "./sections/Flavor";
 import MouseTracker from "./components/MourseTracker";
+import Nutrition from "./sections/Nutrition";
 
 gsap.registerPlugin(SplitText, ScrollTrigger, ScrollSmoother);
 
@@ -18,7 +19,7 @@ function App() {
       effects: true,
       normalizeScroll: true,
     });
-  });
+  }, []);
   return (
     <main id="smooth-wrapper">
       <MouseTracker />
@@ -26,6 +27,7 @@ function App() {
       <Hero />
       <Message />
       <Flavor />
+      <Nutrition />
       <div className="h-screen bg-red-400 z-50 relative" />
     </main>
   );
