@@ -4,6 +4,8 @@ import Hero from "./sections/Hero";
 import { ScrollSmoother, ScrollTrigger, SplitText } from "gsap/all";
 import { useGSAP } from "@gsap/react";
 import Message from "./sections/Message";
+import Flavor from "./sections/Flavor";
+import MouseTracker from "./components/MourseTracker";
 
 gsap.registerPlugin(SplitText, ScrollTrigger, ScrollSmoother);
 
@@ -19,9 +21,11 @@ function App() {
   });
   return (
     <main id="smooth-wrapper">
+      <MouseTracker />
       <Navbar />
       <Hero />
       <Message />
+      <Flavor />
       <div className="h-screen bg-red-400 z-50 relative" />
     </main>
   );

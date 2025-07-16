@@ -22,7 +22,6 @@ const Message = () => {
         scrub: true,
         start: "top center",
         end: "bottom bottom",
-        markers: true,
       },
     });
     tl.from(splitTitle.words, {
@@ -46,6 +45,7 @@ const Message = () => {
         ease: "power1.inOut",
         duration: 1,
         stagger: 0.5,
+        delay: 1,
       });
   }, []);
   return (
