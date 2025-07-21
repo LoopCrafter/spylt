@@ -49,7 +49,6 @@ const BenefitSection = () => {
         trigger: ".benefit-section",
         start: "top 80%",
         end: "bottom 20%",
-        markers: true,
       },
     });
   }, []);
