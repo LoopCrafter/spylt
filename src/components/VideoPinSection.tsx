@@ -1,43 +1,53 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useMediaQuery } from "react-responsive";
 
 const VideoPinSection = () => {
+  const isMobile = useMediaQuery({
+    query: "(max-width: 768px)",
+  });
   useGSAP(() => {
-    gsap.to(".circle-text", {
-      rotate: 360,
-      transformOrigin: "center",
-      repeat: -1,
-      duration: 6,
-      ease: "none",
-    });
+    if (!isMobile) {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".vd-pin-section",
+          start: "-15% top",
+          end: "200% top",
+          scrub: 1.5,
+          pin: true,
+        },
+      });
 
-    gsap.fromTo(
-      ".video-section",
-      {
-        width: 100,
-        height: 100,
-        borderRadius: "50%",
-        transformOrigin: "center",
-      },
-      {}
-    );
-  }, []);
+      tl.to(".video-box", {
+        clipPath: "circle(100% at 50% 50%)",
+        ease: "power1.inOut",
+      });
+    }
+  });
   return (
-    <div className="flex justify-center items-center overflow-hidden">
-      <div className="h-screen relative w-full bg-slate-900 video-section  text-center overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-1/2 -translate-y-1/2 w-[150px] h-[150px]">
-          <img
-            src="images/circle-text.svg"
-            alt="circle text"
-            loading="lazy"
-            className="circle-text w-full h-full"
-          />
-          <div className="absolute top-1/2 left-1/2 -translate-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md shadow-lg p-6 rounded-full">
-            <img src="images/play.svg" alt="play icon" />
+    <section className="vd-pin-section">
+      <div
+        style={{
+          clipPath: isMobile
+            ? "circle(100% at 50% 50%)"
+            : "circle(6% at 50% 50%)",
+        }}
+        className="size-full video-box"
+      >
+        <video src="/videos/pin-video.mp4" playsInline muted loop autoPlay />
+
+        <div className="abs-center md:scale-100 scale-200">
+          <img src="/images/circle-text.svg" alt="" className="spin-circle" />
+          <div className="play-btn">
+            <img
+              src="/images/play.svg"
+              alt=""
+              className="size-[3vw] ml-[.5vw]"
+            />
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

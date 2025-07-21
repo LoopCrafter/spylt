@@ -12,9 +12,8 @@ const BenefitSection = () => {
       scrollTrigger: {
         trigger: ".benefit-section",
         scrub: true,
-        start: "top 10%",
-        end: "bottom 80%",
-        markers: true,
+        start: "top 60%",
+        end: "top top",
       },
     });
     tl.to(".benefit-section .first-title", {
@@ -48,8 +47,8 @@ const BenefitSection = () => {
       ease: "power2.out",
       scrollTrigger: {
         trigger: ".benefit-section",
-        start: "bottom 90%",
-        end: "bottom center",
+        start: "top 80%",
+        end: "bottom 20%",
         markers: true,
       },
     });
