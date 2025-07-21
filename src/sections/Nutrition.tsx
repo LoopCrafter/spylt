@@ -40,6 +40,7 @@ const Nutrition = () => {
         yPercent: 100,
         stagger: 0.02,
         ease: "power2.out",
+        opacity: 0,
       })
       .from(paragraphSplit.words, {
         yPercent: 300,
@@ -47,6 +48,7 @@ const Nutrition = () => {
         ease: "power1.inOut",
         duration: 1,
         stagger: 0.01,
+        opacity: 0,
       });
 
     const titleTl = gsap.timeline({
