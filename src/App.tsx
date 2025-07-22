@@ -9,6 +9,7 @@ import MouseTracker from "./components/MourseTracker";
 import Nutrition from "./sections/Nutrition";
 import BenefitSection from "./sections/BenefitSection";
 import TestimonialSection from "./sections/TestimonialSection";
+import Footer from "./sections/Footer";
 
 gsap.registerPlugin(SplitText, ScrollTrigger, ScrollSmoother);
 
@@ -32,7 +33,7 @@ function App() {
       <Nutrition />
       <BenefitSection />
       <TestimonialSection />
-      <div className="h-screen bg-red-400 z-50 relative" />
+      <Footer />
     </main>
   );
 }
