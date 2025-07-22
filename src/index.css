@@ -261,6 +261,16 @@ body::-webkit-scrollbar {
       }
     }
   }
+  .hamburger {
+    @apply flex flex-col gap-2 w-12 h-12 rounded-full justify-center items-center;
+    &.active {
+      transition: all ease 0.4s;
+      background-color: #fff;
+    }
+    .hamburger-line {
+      @apply w-[3vw] h-[2px] bg-dark-brown;
+    }
+  }
 }
 
 .spin-circle {
