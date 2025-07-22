@@ -89,4 +89,12 @@ const cards = [
   },
 ];
 
-export { flavorlists, nutrientLists, cards };
+const links = [
+  { label: "SHOP", image: "m1.png" },
+  { label: "FIND IN STORES", image: "m2.png" },
+  { label: "ABOUT US", image: "m3.png" },
+  { label: "TASTY TALKS", image: "m4.png" },
+  { label: "PROGRAMS", image: "m5.png" },
+  { label: "CONTACTS", image: "m6.png" },
+];
+export { flavorlists, nutrientLists, cards, links };

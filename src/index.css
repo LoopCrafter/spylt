@@ -262,13 +262,23 @@ body::-webkit-scrollbar {
     }
   }
   .hamburger {
-    @apply flex flex-col gap-2 w-12 h-12 rounded-full justify-center items-center;
+    @apply flex flex-col gap-2 w-12 h-12 rounded-full justify-center items-center z-[2001] relative;
     &.active {
       transition: all ease 0.4s;
       background-color: #fff;
     }
     .hamburger-line {
       @apply w-[3vw] h-[2px] bg-dark-brown;
+    }
+  }
+  .drawer {
+    @apply fixed top-0 left-0 w-full h-screen bg-milk z-[2000];
+    .drawer-link {
+      @apply text-dark-brown 2xl:text-[6.5rem] md:text-[3rem] text-[2rem] font-bold uppercase leading-[6.5vw] tracking-[-.35vw] transition-opacity duration-300 group-hover:opacity-40 hover:!opacity-100 cursor-pointer;
+    }
+    .image-layer {
+      transition: none;
+      will-change: opacity, transform;
     }
   }
 }

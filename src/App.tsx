@@ -24,17 +24,19 @@ function App() {
     });
   }, []);
   return (
-    <main id="smooth-wrapper">
-      <MouseTracker />
+    <>
       <Navbar />
-      <Hero />
-      <Message />
-      <Flavor />
-      <Nutrition />
-      <BenefitSection />
-      <TestimonialSection />
-      <Footer />
-    </main>
+      <main id="smooth-wrapper">
+        <MouseTracker />
+        <Hero />
+        <Message />
+        <Flavor />
+        <Nutrition />
+        <BenefitSection />
+        <TestimonialSection />
+        <Footer />
+      </main>
+    </>
   );
 }
 
