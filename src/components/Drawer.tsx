@@ -7,8 +7,6 @@ type Props = {
 
 const Drawer: React.FC<Props> = ({ isOpen }) => {
   const drawerRef = useRef<HTMLDivElement>(null);
-  const imageContainerRef = useRef<HTMLDivElement>(null);
-  const currentImageRef = useRef<HTMLImageElement | null>(null);
   const imageRef = useRef<HTMLImageElement>(null);
   useEffect(() => {
     const el = drawerRef.current;
@@ -81,6 +79,11 @@ const Drawer: React.FC<Props> = ({ isOpen }) => {
         clipPath: "polygon(0 0%, 100% 0, 100% 0%, 0 0%)",
       }}
     >
+      <div className="hidden">
+        {links.map((link, index) => (
+          <img src={`images/${link.image}`} key={index} />
+        ))}
+      </div>
       <div className="flex">
         <div className="w-1/2 h-screen">
           <div className="group flex flex-col  text-center justify-center items-center h-full">

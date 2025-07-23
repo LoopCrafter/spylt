@@ -281,6 +281,9 @@ body::-webkit-scrollbar {
       will-change: opacity, transform;
     }
   }
+  .counter {
+    @apply text-white 2xl:text-[6.5rem] md:text-[3rem] text-[2rem] font-bold uppercase leading-[6.5vw];
+  }
 }
 
 .spin-circle {
