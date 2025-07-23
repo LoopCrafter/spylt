@@ -282,7 +282,7 @@ body::-webkit-scrollbar {
     }
   }
   .counter {
-    @apply text-white 2xl:text-[6.5rem] md:text-[3rem] text-[2rem] font-bold uppercase leading-[6.5vw];
+    @apply text-white 2xl:text-[6.5rem]  text-[4rem] font-bold uppercase leading-[6.5vw];
   }
 }
 
@@ -296,4 +296,8 @@ body::-webkit-scrollbar {
   to {
     transform: rotate(360deg);
   }
+}
+
+.flavor-item {
+  max-width: 750px;
 }

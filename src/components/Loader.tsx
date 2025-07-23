@@ -47,7 +47,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
       }}
       className="fixed top-0 left-0 w-screen h-screen inset-0 z-[2500] bg-dark-brown flex items-center justify-center text-white text-6xl font-bold loader"
     >
-      <div className="absolute right-10 bottom-10 counter" ref={counterRef}>
+      <div className="md:absolute right-10 bottom-10 counter" ref={counterRef}>
         0%
       </div>
     </div>
