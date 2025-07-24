@@ -30,8 +30,6 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /var/www/spylt.hamed.cloud
-            git pull origin main
-            npm install
-            npm run build
-            pm2 restart all
+            rm -rf /var/www/spylt.hamed.cloud/*
+            mkdir -p /var/www/spylt.hamed.cloud
+            scp -i ~/.ssh/id_vps -r dist/* root@91.107.250.221:/var/www/spylt.hamed.cloud/
