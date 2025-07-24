@@ -18,6 +18,7 @@ const Navbar = () => {
       const tl = gsap.timeline();
       tl.to([topLine.current, bottomLine.current], {
         width: "1.2vw",
+        minWidth: "30px",
         ease: "power2.out",
       });
       tl.to([topLine.current], {
@@ -54,6 +55,7 @@ const Navbar = () => {
     } else {
       gsap.to([topLine.current, bottomLine.current], {
         width: "3vw",
+        minWidth: "45px",
         y: "0%",
         rotateZ: 0,
         duration: 0.4,

@@ -3,11 +3,11 @@ import gsap from "gsap";
 import { SplitText } from "gsap/all";
 import { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import Loader from "../components/Loader";
+import useStore from "../store";
 
 const Hero = () => {
   const [videoLoaded, setVideoLoaded] = useState(false);
-  const [loadingDone, setLoadingDone] = useState(false);
+  const loadingDone = useStore((state) => state.pageLoaded);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
   const isMobile = useMediaQuery({
@@ -97,7 +97,6 @@ const Hero = () => {
 
   return (
     <>
-      <Loader onComplete={() => setLoadingDone(true)} />
       <section className="bg-main-bg hero-section overflow-hidden">
         <div className="hero-container">
           {isTablet ? (

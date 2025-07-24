@@ -10,34 +10,50 @@ import Nutrition from "./sections/Nutrition";
 import BenefitSection from "./sections/BenefitSection";
 import TestimonialSection from "./sections/TestimonialSection";
 import Footer from "./sections/Footer";
+import Loader from "./components/Loader";
+import useStore from "./store";
+import { useEffect } from "react";
+import { useMediaQuery } from "react-responsive";
 
 gsap.registerPlugin(SplitText, ScrollTrigger, ScrollSmoother);
 
 function App() {
-  if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
-  }
+  const isMobile = useMediaQuery({
+    query: "(max-width: 768px)",
+  });
+  const setLoadingDone = useStore((state) => state.setPageLoaded);
+  const pageLoaded = useStore((state) => state.pageLoaded);
 
-  setTimeout(() => {
-    const smoother = ScrollSmoother.get();
-    if (smoother) {
+  useEffect(() => {
+    if (!pageLoaded) {
+      document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.width = "100%";
+    } else {
+      document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.width = "";
+    }
+  }, [pageLoaded]);
+
+  useGSAP(() => {
+    if (pageLoaded) {
+      const smoother = ScrollSmoother.create({
+        wrapper: "#root",
+        content: "#smooth-wrapper",
+        smooth: 2,
+        effects: true,
+        normalizeScroll: true,
+      });
       smoother.scrollTo(0, true);
     }
-  }, 0);
-  useGSAP(() => {
-    ScrollSmoother.create({
-      wrapper: "#root",
-      content: "#smooth-wrapper",
-      smooth: 2,
-      effects: true,
-      normalizeScroll: true,
-    });
-  }, []);
+  }, [pageLoaded]);
   return (
     <>
       <Navbar />
-      <main id="smooth-wrapper">
-        <MouseTracker />
+      <Loader onComplete={() => setLoadingDone()} />
+      <main id={`${"smooth-wrapper"}`}>
+        {!isMobile && <MouseTracker />}
         <Hero />
         <Message />
         <Flavor />

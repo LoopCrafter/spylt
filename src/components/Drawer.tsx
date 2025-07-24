@@ -85,7 +85,7 @@ const Drawer: React.FC<Props> = ({ isOpen }) => {
         ))}
       </div>
       <div className="flex">
-        <div className="w-1/2 h-screen">
+        <div className="w-full md:w-1/2 h-screen">
           <div className="group flex flex-col  text-center justify-center items-center h-full">
             {links.map((item, index) => (
               <a
@@ -101,7 +101,7 @@ const Drawer: React.FC<Props> = ({ isOpen }) => {
           </div>
         </div>
 
-        <div className="w-1/2 h-screen relative overflow-hidden">
+        <div className="hidden md:block w-1/2 h-screen relative overflow-hidden">
           <img
             ref={imageRef}
             className="absolute inset-0 w-full h-full object-cover z-10"
