@@ -8,6 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -23,16 +24,23 @@ jobs:
       - name: Build Project
         run: npm run build
 
-      - name: Deploy to VPS
+      - name: Upload Build Files to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "dist/*"
+          target: "/var/www/spylt.hamed.cloud"
+
+      - name: Set permissions & reload Nginx
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            rm -rf /var/www/spylt.hamed.cloud/*
-            mkdir -p /var/www/spylt.hamed.cloud
-            scp -r dist/* $SSH_USER@$SSH_HOST:/var/www/spylt.hamed.cloud/
             chown -R www-data:www-data /var/www/spylt.hamed.cloud
-            chmod -R 755 /var/www/spylt.hamed.cloud
+            find /var/www/spylt.hamed.cloud -type d -exec chmod 755 {} \;
+            find /var/www/spylt.hamed.cloud -type f -exec chmod 644 {} \;
             docker exec $(docker ps -qf "name=nginx-proxy-manager") nginx -s reload
