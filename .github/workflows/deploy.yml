@@ -32,4 +32,5 @@ jobs:
           script: |
             rm -rf /var/www/spylt.hamed.cloud/*
             mkdir -p /var/www/spylt.hamed.cloud
-            scp -i ~/.ssh/id_vps -r dist/* root@91.107.250.221:/var/www/spylt.hamed.cloud/
+            scp -r dist/* ${SSH_USER}@${SSH_HOST}:/var/www/spylt.hamed.cloud/
+            cd /root/nginx-proxy-manager && docker-compose down && docker-compose up -d
