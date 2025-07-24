@@ -33,4 +33,6 @@ jobs:
             rm -rf /var/www/spylt.hamed.cloud/*
             mkdir -p /var/www/spylt.hamed.cloud
             scp -r dist/* ${SSH_USER}@${SSH_HOST}:/var/www/spylt.hamed.cloud/
-            cd /root/nginx-proxy-manager && docker-compose down && docker-compose up -d
+            chown -R www-data:www-data /var/www/spylt.hamed.cloud
+            chmod -R 755 /var/www/spylt.hamed.cloud
+            docker exec $(docker ps -qf "name=nginx-proxy-manager") nginx -s reload
