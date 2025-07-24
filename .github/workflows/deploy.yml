@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -18,29 +18,29 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm install
 
-      - name: Build Project
+      - name: Build project
         run: npm run build
 
-      - name: Upload Build Files to VPS
+      - name: Upload build files to VPS
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "dist/*"
-          target: "/var/www/spylt.hamed.cloud"
+          target: "/var/www/spylt.hamed.cloud/"
 
-      - name: Set permissions & reload Nginx
+      - name: Set correct permissions and reload Nginx
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            chown -R www-data:www-data /var/www/spylt.hamed.cloud
+            chown -R 100:101 /var/www/spylt.hamed.cloud
             find /var/www/spylt.hamed.cloud -type d -exec chmod 755 {} \;
             find /var/www/spylt.hamed.cloud -type f -exec chmod 644 {} \;
             docker exec $(docker ps -qf "name=nginx-proxy-manager") nginx -s reload
