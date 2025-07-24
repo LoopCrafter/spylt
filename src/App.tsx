@@ -10,14 +10,20 @@ import Nutrition from "./sections/Nutrition";
 import BenefitSection from "./sections/BenefitSection";
 import TestimonialSection from "./sections/TestimonialSection";
 import Footer from "./sections/Footer";
-import { useEffect } from "react";
 
 gsap.registerPlugin(SplitText, ScrollTrigger, ScrollSmoother);
 
 function App() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  setTimeout(() => {
+    const smoother = ScrollSmoother.get();
+    if (smoother) {
+      smoother.scrollTo(0, true);
+    }
+  }, 0);
   useGSAP(() => {
     ScrollSmoother.create({
       wrapper: "#root",
