@@ -32,6 +32,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "dist/*"
           target: "/var/www/spylt.hamed.cloud/"
+          strip_components: 1
 
       - name: Set correct permissions and reload Nginx
         uses: appleboy/ssh-action@master
