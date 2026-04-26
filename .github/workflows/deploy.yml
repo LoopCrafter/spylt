@@ -1,4 +1,4 @@
-name: CI/CD Deployment to VPS
+name: Build & Deploy Spylt (React)
 
 on:
   push:
@@ -6,42 +6,43 @@ on:
       - main
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Login DockerHub
+        uses: docker/login-action@v3
         with:
-          node-version: "20"
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_PASS }}
 
-      - name: Install dependencies
-        run: npm install
+      - name: Build image
+        run: |
+          docker build \
+            -t ${{ secrets.DOCKER_USER }}/spylt:latest .
 
-      - name: Build project
-        run: npm run build
+      - name: Push image
+        run: |
+          docker push ${{ secrets.DOCKER_USER }}/spylt:latest
 
-      - name: Upload build files to VPS
-        uses: appleboy/scp-action@v0.1.7
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "dist/*"
-          target: "/var/www/spylt.hamed.cloud/"
-          strip_components: 1
-
-      - name: Set correct permissions and reload Nginx
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.HOST }}
+          username: root
+          key: ${{ secrets.SSH_KEY }}
           script: |
-            chown -R 100:101 /var/www/spylt.hamed.cloud
-            find /var/www/spylt.hamed.cloud -type d -exec chmod 755 {} \;
-            find /var/www/spylt.hamed.cloud -type f -exec chmod 644 {} \;
-            docker exec $(docker ps -qf "name=nginx-proxy-manager") nginx -s reload
+            mkdir -p /root/apps/spylt
+
+            cd /root/apps/spylt
+            docker pull ${{ secrets.DOCKER_USER }}/spylt:latest
+
+            docker compose up -d --force-recreate
