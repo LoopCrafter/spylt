@@ -41,6 +41,14 @@ body::-webkit-scrollbar {
 }
 
 @layer utilities {
+  body {
+    @apply cursor-none;
+  }
+  a,
+  button,
+  .hover {
+    @apply cursor-pointer;
+  }
   .flex-center {
     @apply flex justify-center items-center;
   }

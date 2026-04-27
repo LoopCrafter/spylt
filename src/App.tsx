@@ -52,8 +52,8 @@ function App() {
     <>
       <Navbar />
       <Loader onComplete={() => setLoadingDone()} />
+      {!isMobile && <MouseTracker />}
       <main id={`${"smooth-wrapper"}`}>
-        {!isMobile && <MouseTracker />}
         <Hero />
         <Message />
         <Flavor />

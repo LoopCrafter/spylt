@@ -1,42 +1,93 @@
 "use client";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
 
 const MouseTracker = () => {
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const smallCursorRef = useRef<HTMLDivElement>(null);
+
   useGSAP(() => {
-    document.addEventListener("mousemove", mouseTracker);
+    if (!cursorRef.current || !smallCursorRef.current) return;
+
+    if (cursorRef.current) {
+      gsap.set(cursorRef.current, { scale: 1, opacity: 1 });
+    }
+
+    const xToBig = gsap.quickTo(cursorRef.current, "x", {
+      duration: 0.2,
+      ease: "power3.out",
+    });
+
+    const yToBig = gsap.quickTo(cursorRef.current, "y", {
+      duration: 0.2,
+      ease: "power3.out",
+    });
+
+    const xToSmall = gsap.quickTo(smallCursorRef.current, "x", {
+      duration: 0.6,
+      ease: "power3.out",
+    });
+
+    const yToSmall = gsap.quickTo(smallCursorRef.current, "y", {
+      duration: 0.6,
+      ease: "power3.out",
+    });
+
+    const moveHandler = (e: MouseEvent) => {
+      const x = e.clientX;
+      const y = e.clientY;
+
+      const target = e.target as HTMLElement;
+
+      const isInteractive = target.closest("a, button, .hover");
+
+      if (isInteractive) {
+        gsap.to(cursorRef.current, {
+          scale: 0,
+          duration: 0.2,
+        });
+
+        gsap.to(smallCursorRef.current, {
+          scale: 0,
+          duration: 0.2,
+        });
+      } else {
+        gsap.to(cursorRef.current, {
+          scale: 1,
+          duration: 0.2,
+        });
+
+        gsap.to(smallCursorRef.current, {
+          scale: 1,
+          duration: 0.2,
+        });
+      }
+
+      xToBig(x - 20);
+      yToBig(y - 20);
+
+      xToSmall(x - 8);
+      yToSmall(y - 8);
+    };
+
+    document.addEventListener("mousemove", moveHandler);
 
     return () => {
-      document.removeEventListener("mousemove", mouseTracker);
+      document.removeEventListener("mousemove", moveHandler);
     };
-  });
-
-  const mouseTracker = (e: MouseEvent) => {
-    const cursor = document.querySelector(".cursor");
-    const cursorWrapper = document.querySelector(".cursor-wrapper");
-    const x = e.clientX + window.scrollX;
-    const y = e.clientY + window.scrollY;
-    gsap.to(cursor, {
-      x: x - 20,
-      y: y - 20,
-      duration: 0.7,
-      ease: "power4.out",
-      delay: 0.15,
-    });
-
-    gsap.to(cursorWrapper, {
-      x: x - 30,
-      y: y - 30,
-      duration: 0.7,
-      ease: "power4.out",
-      delay: 0.3,
-    });
-  };
+  }, []);
 
   return (
     <>
-      <div className="cursor w-[10px] h-[10px] rounded-full fixed top-0 left-0 bg-[#523122] z-50"></div>
-      <div className="cursor-wrapper w-[30px] h-[30px] rounded-full fixed top-0 left-0 border border-[#523122] z-50"></div>
+      <div
+        ref={cursorRef}
+        className="cursor max-sm:hidden size-8 rounded-full fixed top-0 left-0 border border-[#523122] z-50 pointer-events-none"
+      />
+      <div
+        ref={smallCursorRef}
+        className="max-sm:hidden fixed top-0 left-0 size-2 rounded-full  z-[55] bg-[#523122] pointer-events-none"
+      />
     </>
   );
 };

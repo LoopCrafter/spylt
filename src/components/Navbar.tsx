@@ -33,7 +33,7 @@ const Navbar = () => {
           duration: 0.3,
           ease: "power2.inOut",
         },
-        "<"
+        "<",
       );
       tl.to(topLine.current, {
         rotateZ: 45,
@@ -50,7 +50,7 @@ const Navbar = () => {
           duration: 0.4,
           ease: "power2.out",
         },
-        "<"
+        "<",
       );
     } else {
       gsap.to([topLine.current, bottomLine.current], {
@@ -72,7 +72,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="fixed top-0 left-0 w-full z-[2001] md:p-9 p-3 cursor-pointer flex justify-between items-center ">
+      <div className="fixed top-0 left-0 w-full z-[2001] md:p-9 p-3  flex justify-between items-center ">
         <MagneticWrapper strength={40} textStrength={30}>
           <img src="/images/nav-logo.svg" alt="Logo" className="w-24 md:w-20" />
         </MagneticWrapper>
